@@ -1,0 +1,111 @@
+<!--
+ NodeRED Adafruit IO MQTT
+ Copyright (C) 2017 Michael Jacobsen.
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<script type="text/x-red" data-template-name="adafruit-io">
+    <div class="form-row">
+        <label for="node-config-input-broker"><i class="fa fa-globe"></i> <span data-i18n="mqtt-client.label.broker"></span></label>
+        <input type="text" id="node-config-input-broker">
+    </div>
+
+    <div class="form-row">
+        <b>Adafruit IO Settings</b>
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-username"><i class="fa fa-globe"></i> Username</label>
+        <input type="text" id="node-input-username">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-feedname"><i class="fa fa-tag"></i> Feedname</label>
+        <input type="text" id="node-input-feedname">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+
+    <div class="form-tips">
+        Adafruit IO broker is <code>io.adafruit.com</code>.<br/>
+        <br/>
+        Use port <code>1883</code> for plain-text transfers.<br/>
+        Use port <code>8883</code> for encrypted transfers.<br/>
+        <br/>
+        Adafruit CA Certificate (GeoTrust Inc.):<br/>
+        <code>
+        -----BEGIN CERTIFICATE-----
+        MIID/jCCAuagAwIBAgIQFaxulBmyeUtB9iepwxgPHzANBgkqhkiG9w0BAQsFADCB
+        mDELMAkGA1UEBhMCVVMxFjAUBgNVBAoTDUdlb1RydXN0IEluYy4xOTA3BgNVBAsT
+        MChjKSAyMDA4IEdlb1RydXN0IEluYy4gLSBGb3IgYXV0aG9yaXplZCB1c2Ugb25s
+        eTE2MDQGA1UEAxMtR2VvVHJ1c3QgUHJpbWFyeSBDZXJ0aWZpY2F0aW9uIEF1dGhv
+        cml0eSAtIEczMB4XDTA4MDQwMjAwMDAwMFoXDTM3MTIwMTIzNTk1OVowgZgxCzAJ
+        BgNVBAYTAlVTMRYwFAYDVQQKEw1HZW9UcnVzdCBJbmMuMTkwNwYDVQQLEzAoYykg
+        MjAwOCBHZW9UcnVzdCBJbmMuIC0gRm9yIGF1dGhvcml6ZWQgdXNlIG9ubHkxNjA0
+        BgNVBAMTLUdlb1RydXN0IFByaW1hcnkgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkg
+        LSBHMzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANziXmJYHTNXOTIz
+        +uvLh4yn1ErdBojqZI4xmKU4kB6Yzy5jK/BGvESyiaHAKAxJcCGVn2TAppMSAmUm
+        hsalifD614SgcK9PGpc/BkTVyetyEH3kMSj7HGHmKAdEc5IiaacDiGydY8hS2pgn
+        5whMcD60yRLBxWeDXTPzAxHsatBT4tG6NmCUgLthY2xbF37fQJQeqw3CIShwiP/W
+        JmxsYAQlTlV+fe+/lEjetx3dcI0FX4ilm/LC7urRQEFtYjgdVgbFA0dRIBn8exAL
+        DmKudlW/X3e+PkkBUz2YJQN2JFodtNuJ6nnltrM7P7pMKEF/BqxqjsHQ9gUdfeZC
+        huOl1UcCAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYw
+        HQYDVR0OBBYEFMR5yo6hTgMdHNxr2zFblD4/MH8tMA0GCSqGSIb3DQEBCwUAA4IB
+        AQAtxRPPVoB7eni9n64smefv2t+UXglpp+duaIy9cr5HqQ6XErhK8WTTOd8lNNTB
+        zU6B8A8ExCSzNJbGpqow32hhc9f5joWJ7w5elShKKiePEI4ufIbEAp7aDHdlDkQN
+        kv39sxY2+hENHYwOB4lqKVb3cvTdFZx3NWZXqxNT2I7BQMXXExZacse3aQHEerGD
+        AWh9jUGhlBjBJVz88P6DAod8DQ3PLghcSkANPuyBYeYk28rgDi0Hsj5W3I31QYUH
+        SJsMC8tJP33st/3LjWeJGqvtux6jAAgIFyqCXDFdRootD4abdNlF+9RAsXqqaC2G
+        spki4cErx5z481+oghLrGREt
+        -----END CERTIFICATE-----            
+        </code>
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('adafruit-io', {
+        category: 'adafruit_io-function',
+        paletteLabel: 'Adafruit-IO',
+        defaults: {
+            broker: {
+                type: "mqtt-broker", 
+                required: true
+            },
+            username: {
+                value: "",
+                required: true
+            },
+            feedname: {
+                value: "", 
+                required: true
+            },
+            name: {
+                value: ""
+            },
+        },
+        inputs: 1,
+        outputs: 1,
+        color: "#fcc127",
+        label: function() {
+            return this.name || "Adafruit IO";
+        },
+        labelStyle: function() {
+            return this.name ? "node_label_italic" : ""
+        }
+    })
+</script>

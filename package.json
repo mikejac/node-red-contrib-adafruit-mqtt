@@ -1,0 +1,39 @@
+{
+  "name": "node-red-contrib-adafruit-mqtt",
+  "version": "0.0.1",
+  "description": "Node-RED nodes to connect to Adafruit IO via MQTT",
+  "main": "mqtt-client.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikejac/node-red-contrib-adafruit-mqtt.git"
+  },
+  "keywords": [
+    "adafruit",
+    "mqtt",
+    "iot"
+  ],
+  "node-red": {
+    "nodes": {
+      "mqtt-client": "mqtt-client.js"
+    }
+  },
+  "author": {
+    "name": "Michael Jacobsen"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/mikejac/node-red-contrib-adafruit-mqtt/issues"
+  },
+  "homepage": "https://github.com/mikejac/node-red-contrib-adafruit-mqtt#readme",
+  "dependencies": {
+    "is-utf8": ">=0.2.1",
+    "mqtt": ">=1.14.1"
+  },
+  "maintainers": [
+    {
+      "name": "mikejac",
+      "email": "michael@visbyjacobsen.dk"
+    }
+  ]
+  }
